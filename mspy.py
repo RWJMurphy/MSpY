@@ -35,9 +35,10 @@ REGEXEN = {
     },
 }
 
-__all__ = ["MSY"]
+__all__ = ["MSpY"]
 
-class MSY(object):
+
+class MSpY(object):
     def __init__(self, request_delay=1):
         self.request_delay = request_delay
         self._last_get = datetime.min
@@ -65,7 +66,7 @@ class MSY(object):
                 attributes[a_name] = a_value
         return attributes
 
-    def _extract_product(self, element): 
+    def _extract_product(self, element):
         query_args = parse_qs(urlparse(element.find("a")['href']).query)
         pid = int(query_args['productId'][0])
         product = {
@@ -104,4 +105,3 @@ class MSY(object):
             for product in self._fetch_products_by_cid(cid, ptype, next_page):
                 yield product
         raise StopIteration
-
