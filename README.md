@@ -3,6 +3,8 @@ MSpY
 
 A python class for scraping pricing and other data from msy.com.au
 
+Requires [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/) and [requests](http://docs.python-requests.org/en/latest/).
+
 Usage
 =====
 
