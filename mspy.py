@@ -28,9 +28,9 @@ REGEXEN = {
         "sata": (re.compile(r' sata( ?[0-9]+| I+)?', re.I), str, 0),
     },
     "RAM": {
-        "size": (re.compile(r'([0-9]+)GB?', re.I), int, 1),
-        "ddr": (re.compile(r'ddr[23]?', re.I), str, 0),
-        "clock": (re.compile(r'ddr[23]?[ -]?([0-9]+)', re.I), int, 1),
+        "size": (re.compile(r' ([0-9]+)GB?', re.I), int, 1),
+        "ddr": (re.compile(r' ddr[23]?', re.I), str, 0),
+        "clock": (re.compile(r' ddr[23]?[ -]?([0-9]+)', re.I), int, 1),
         "kit": (re.compile(r'\(([0-9]+GB?x[0-9]+)\)', re.I), str, 1),
     },
 }
