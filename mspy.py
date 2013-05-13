@@ -60,7 +60,7 @@ class MSpY(object):
                 a_value = None
                 matches = regex.search(name)
                 if matches is not None:
-                    a_value = a_type(matches.group(group))
+                    a_value = a_type(matches.group(group).strip())
                 elif a_type == bool:
                     a_value = False
                 attributes[a_name] = a_value
