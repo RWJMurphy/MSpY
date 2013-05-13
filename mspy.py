@@ -37,6 +37,11 @@ REGEXEN = {
 
 __all__ = ["MSpY"]
 
+# http://stackoverflow.com/a/14620633/1373890
+class Product(dict):
+    def __init__(self, *args, **kwargs):
+        super(Product, self).__init__(*args, **kwargs)
+        self.__dict__ = self
 
 class MSpY(object):
     def __init__(self, request_delay=1):
@@ -69,11 +74,11 @@ class MSpY(object):
     def _extract_product(self, element):
         query_args = parse_qs(urlparse(element.find("a")['href']).query)
         pid = int(query_args['productId'][0])
-        product = {
-                "name": element.find(class_="title").get_text().strip(),
-                "pid": int(pid),
-                "price": float(element.find(class_="price").get_text().lstrip('$')),
-        }
+        product = Product(
+                name=element.find(class_="title").get_text().strip(),
+                pid=int(pid),
+                price=float(element.find(class_="price").get_text().lstrip('$')),
+        )
         return product
 
     def products(self, category=None, cid=None, ptype=None):
@@ -97,7 +102,7 @@ class MSpY(object):
         product_elements = soup.find(class_="homeProGrid")("dd")
         for elem in product_elements:
             product = self._extract_product(elem)
-            product.update(self._parse_product_name(product['name'], ptype))
+            product.update(self._parse_product_name(product.name, ptype))
             yield product
 
         next_page = page + 1
